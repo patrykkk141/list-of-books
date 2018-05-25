@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Create a new book</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#" th:href="@{/books}">Books</a></li>
+            <li><a href="#" th:href="@{/publishers}">Publishers</a></li>
+        </ul>
+        <form action="#" th:action="@{/logout}" class="form-inline nav navbar-right" , method="post">
+            <button class="btn glyphicon glyphicon-log-out" type="submit"> Logout</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <form action="#" th:action="@{/insert/book}" th:object="${bookDto}" method="post">
+            <input type="hidden" th:field="*{bookId}">
+            <div class="form-group col-lg-12">
+                <label for="title">Title</label>
+                <input type="text" id="title" class="form-control" placeholder="Enter title" th:field="*{title}">
+                <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            </div>
+            <div class="form-group col-lg-12">
+                <label for="author">Author</label>
+                <input type="text" id="author" class="form-control" placeholder="Enter author" th:field="*{author}">
+                <p class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></p>
+            </div>
+            <div class="form-group col-lg-12">
+                <label for="release-date">Release date</label>
+                <input type="date" id="release-date" class="form-control" placeholder="Enter release date"
+                       th:field="*{releaseDate}">
+                <p class="text-danger" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"></p>
+            </div>
+            <div class="form-group col-lg-12">
+                <label for="publisher">Publisher</label>
+                <select class="form-control" id="publisher" th:field="*{publisherId}">
+                    <!--<option value="" selected disabled hidden>Select publisher</option>-->
+                    <option th:each="publisher: ${publishers}" th:value="${publisher.publisherId}"
+                            th:text="${publisher.name}"></option>
+                </select>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

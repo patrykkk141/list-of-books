@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Publishers</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#" th:href="@{/publishers}">Publishers</a></li>
+            <li><a href="#" th:href="@{/books}">Books</a></li>
+        </ul>
+        <form action="#" th:action="@{/logout}" class="form-inline nav navbar-right" , method="post">
+            <button class="btn glyphicon glyphicon-log-out" type="submit"> Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container ">
+    <div class=" text-center">
+        <h1>List of publishers</h1>
+    </div>
+    <span class="pull-right"> <a class="btn btn-primary" href="#" th:href="@{/insert/publisher}"
+                                 th:text="'Add publisher'"></a></span>
+
+    <div class="row text-center">
+        <table class="table table-striped table-hover table-bordered ">
+            <thead>
+            <th>Name
+            <th style="width:20px;"><a class="glyphicon glyphicon-sort-by-attributes" href="#"
+                                       th:href="@{/publishers/(srt='asc')}"></a></th>
+            <th style="width:20px;"><a class="glyphicon glyphicon-sort-by-attributes-alt" href="#"
+                                       th:href="@{/publishers/(srt='desc')}"></a></th>
+            </th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            </thead>
+            <tbody>
+            <tr th:each="publisher: ${publishers}">
+                <td colspan="3" th:text="${publisher.name}"></td>
+                <td th:text="${publisher.address}"></td>
+                <td th:text="${publisher.email}"></td>
+                <td><a class="glyphicon glyphicon-remove" style="color:red" href="#"
+                       th:href="@{/publisher/delete(id=${publisher.publisherId})}"></a></td>
+                <td><a class="glyphicon glyphicon-edit" href="#"
+                       th:href="@{/publisher/edit(id=${publisher.publisherId})}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
